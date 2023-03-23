@@ -2,16 +2,15 @@
 name = "catbot"
 version = "0.1.0"
 description = "Telegram bot to send bi-daily messages to remind WG members to feed the cat"
-authors = ["Clément Sicard <c.clement.sicard@northvolt.com>"]
-license = "Clément Sicard <clement.sicard@icloud.com>"
+authors = ["Clément Sicard <clement.sicard@icloud.com>"]
+license = ""
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
 telepot = "^12.7"
-schedule = "^1.1.0"
 loguru = "^0.6.0"
-notebook = "^6.5.3"
+pytz = "^2022.7.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.2.0"
