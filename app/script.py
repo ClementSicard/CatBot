@@ -19,11 +19,11 @@ def run():
     TOKEN, CHAT_ID = utils.get_config()
     bot = telepot.Bot(TOKEN)
     logger.success("Bot started")
-    logger.debug(f"Args: {args}")
+    logger.debug(f"Args: {args}, CHAT_ID: {CHAT_ID}, TOKEN: {TOKEN}")
 
     if args["test"]:
         logger.info("Running in test mode")
-        send_reminder(bot, CHAT_ID, morning=True)
+        # send_reminder(bot, CHAT_ID, morning=True)
         send_reminder(bot, CHAT_ID, morning=False)
         exit()
 
@@ -66,7 +66,7 @@ def send_reminder(bot: telepot.Bot, chat_id: str, morning: bool = True):
         message = EVENING_MESSAGE
         bot.sendMessage(
             chat_id,
-            message,
+            message.format(*random.choices(REACTION_EMOJIS, k=2)),
             parse_mode="HTML",
         )
 

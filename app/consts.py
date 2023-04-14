@@ -1,10 +1,8 @@
 from datetime import time
 
-import pytz
-
-TIMEZONE = pytz.timezone("Europe/Zurich")
-REMINDER_MORNING = time(hour=7, minute=00, tzinfo=TIMEZONE)
-REMINDER_EVENING = time(hour=18, minute=00, tzinfo=TIMEZONE)
+# UTC time
+REMINDER_MORNING = time(hour=7, minute=00)
+REMINDER_EVENING = time(hour=18, minute=00)
 
 # Telegram reaction emojis
 REACTION_EMOJIS = [
@@ -92,8 +90,9 @@ Lui donner:
 - Y mettre 1 complément en dragées effrité 🍬
 - Et 0.5 mL de médicament dans la seringue 💉
 
-<b>Réagissez {} à ce message si vous lui seulement donné à manger, et {} si vous avez\
-      lui aussi donné le médicament 🐈🍜</b>
+Petit <a href="https://drive.google.com/file/d/1tc0Dotgzbx8ana5L_DQmWI5S68qEYLSU/view?usp=share_link">manuel d'utilisation</a> si besoin 📖
+
+<b>Réagissez {} à ce message si vous lui seulement donné à manger, et {} si vous avez lui aussi donné le médicament 🐈🍜</b>
 """
 
 EVENING_MESSAGE = """
@@ -104,6 +103,7 @@ Lui donner:
 - Y mettre 1 complément en dragées effrité 🍬
 - Et 0.5 mL de médicament dans la seringue 💉
 
-<b>Réagissez {} à ce message si vous lui seulement donné à manger, et {} si vous avez\
-      lui aussi donné le médicament 🐈🍜</b>
+Petit <a href="https://drive.google.com/file/d/1tc0Dotgzbx8ana5L_DQmWI5S68qEYLSU/view?usp=share_link">manuel d'utilisation</a> si besoin 📖
+
+<b>Réagissez {} à ce message si vous lui seulement donné à manger, et {} si vous avez lui aussi donné le médicament 🐈🍜</b>
 """
