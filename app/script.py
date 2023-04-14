@@ -16,7 +16,7 @@ from loguru import logger
 
 
 def run():
-    TOKEN, CHAT_ID = utils.get_config()
+    TOKEN, CHAT_ID, CHAT_TEST_ID = utils.get_config()
     bot = telepot.Bot(TOKEN)
     logger.success("Bot started")
     logger.debug(f"Args: {args}, CHAT_ID: {CHAT_ID}, TOKEN: {TOKEN}")
@@ -24,7 +24,7 @@ def run():
     if args["test"]:
         logger.info("Running in test mode")
         # send_reminder(bot, CHAT_ID, morning=True)
-        send_reminder(bot, CHAT_ID, morning=False)
+        send_reminder(bot, CHAT_TEST_ID, morning=False)
         exit()
 
     schedule.every().day.at(REMINDER_MORNING.strftime("%H:%M")).do(
