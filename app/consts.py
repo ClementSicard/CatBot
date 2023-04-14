@@ -2,7 +2,6 @@ from datetime import time
 
 import pytz
 
-CHAT_ID = "-826697665"
 TIMEZONE = pytz.timezone("Europe/Zurich")
 REMINDER_MORNING = time(hour=9, minute=36, tzinfo=TIMEZONE)
 REMINDER_EVENING = time(hour=18, minute=0, tzinfo=TIMEZONE)
