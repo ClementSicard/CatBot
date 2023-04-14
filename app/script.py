@@ -1,15 +1,16 @@
 import argparse
-from datetime import datetime, time
+import random
 from time import sleep
 
+import schedule
 import telepot
 import utils
 from consts import (
     EVENING_MESSAGE,
     MORNING_MESSAGE,
+    REACTION_EMOJIS,
     REMINDER_EVENING,
     REMINDER_MORNING,
-    TIMEZONE,
 )
 from loguru import logger
 
@@ -19,41 +20,57 @@ def run():
     bot = telepot.Bot(TOKEN)
     logger.success("Bot started")
     logger.debug(f"Args: {args}")
+
+    if args["test"]:
+        logger.info("Running in test mode")
+        send_reminder(bot, CHAT_ID, morning=True)
+        send_reminder(bot, CHAT_ID, morning=False)
+        exit()
+
+    schedule.every().day.at(REMINDER_MORNING.strftime("%H:%M")).do(
+        send_reminder,
+        bot,
+        CHAT_ID,
+        morning=True,
+    )
+    logger.info(f"Morning reminder set to {REMINDER_MORNING.strftime('%H:%M')}")
+    schedule.every().day.at(REMINDER_EVENING.strftime("%H:%M")).do(
+        send_reminder,
+        bot,
+        CHAT_ID,
+        morning=False,
+    )
+    logger.info(f"Evening reminder set to {REMINDER_EVENING.strftime('%H:%M')}")
+
     while True:
-        send_reminder(bot, CHAT_ID)
-        sleep(60)  # Wait 1 minute before checking again
+        schedule.run_pending()
+        sleep(1)
 
 
 # Function to send the reminder message
-def send_reminder(bot: telepot.Bot, chat_id: str):
-    # Get the current time in the specified timezone
-    now = datetime.now(tz=TIMEZONE).time()
-    now = time(hour=now.hour, minute=now.minute)
-
+def send_reminder(bot: telepot.Bot, chat_id: str, morning: bool = True):
     # Check if it's time for the first or second reminder
-    if now == REMINDER_MORNING or args["test"]:
+    if morning:
         # Construct the reminder message
         logger.info("Sending morning reminder message")
         message = MORNING_MESSAGE
         logger.success("Message sent")
-        # Send the message and get the message ID
         bot.sendMessage(
             chat_id,
-            message,
+            message.format(*random.choices(REACTION_EMOJIS, k=2)),
             parse_mode="HTML",
         )
-    elif now == REMINDER_EVENING:
+
+    else:
         logger.info("Sending evening reminder message")
         message = EVENING_MESSAGE
-        # Send the message and get the message ID
         bot.sendMessage(
             chat_id,
             message,
             parse_mode="HTML",
         )
+
         logger.success("Message sent")
-    else:
-        logger.error("Not time for a reminder yet")
 
 
 if __name__ == "__main__":
