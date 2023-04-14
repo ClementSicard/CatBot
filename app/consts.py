@@ -4,7 +4,7 @@ import pytz
 
 TIMEZONE = pytz.timezone("Europe/Zurich")
 REMINDER_MORNING = time(hour=7, minute=00, tzinfo=TIMEZONE)
-REMINDER_EVENING = time(hour=18, minute=30, tzinfo=TIMEZONE)
+REMINDER_EVENING = time(hour=18, minute=00, tzinfo=TIMEZONE)
 
 # Telegram reaction emojis
 REACTION_EMOJIS = [
